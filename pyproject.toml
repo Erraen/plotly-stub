@@ -1,0 +1,13 @@
+[project]
+name = "plotly"
+version = "5.999.0"
+description = "Lightweight plotly stub for Dash (no actual plotly functionality)"
+requires-python = ">=3.12"
+dependencies = ["orjson"]
+
+[tool.setuptools]
+packages = [
+    "plotly",
+    "plotly.io",
+    "_plotly_utils",
+]
