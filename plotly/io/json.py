@@ -16,7 +16,9 @@ Hence the default handler is required.
 
 from __future__ import annotations
 
+from decimal import Decimal
 from typing import Any
+from uuid import UUID
 
 import orjson
 
@@ -29,6 +31,12 @@ def to_json_plotly(v: Any, pretty: bool = False, engine: str | None = None) -> s
         # datetime/date -> ISO string
         if hasattr(obj, "isoformat"):
             return obj.isoformat()
+        # Decimal -> float (matches original plotly behavior)
+        if isinstance(obj, Decimal):
+            return float(obj)
+        # UUID -> str
+        if isinstance(obj, UUID):
+            return str(obj)
         raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
     # Convert top-level object (same as the original)
